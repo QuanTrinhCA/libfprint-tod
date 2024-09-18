@@ -2,12 +2,13 @@
 
 Name:           libfprint-tod
 
-Version:        1.94.7
-Release:        1
+Version:        1.94.8
+Release:        %autorelease
 Summary:        Toolkit for fingerprint scanner
 
-Provides:       libfprint == 1.94.7
-Obsoletes:      libfprint == 1.94.7
+Provides:       %{name} == %{version}
+Obsoletes:      %{name} < %{version}
+Conflicts:      libfprint
 
 License:        LGPLv2+
 URL:            http://www.freedesktop.org/wiki/Software/fprint/libfprint
@@ -33,15 +34,19 @@ BuildRequires:  python3-cairo python3-gobject cairo-devel
 BuildRequires:  umockdev >= 0.13.2
 
 %description
-libfprint offers support for consumer fingerprint reader devices.
+%{name} offers support for consumer fingerprint reader
+devices and TOD devices
 
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       %{name}-devel == %{version}
+Obsoletes:      %{name}-devel < %{version}
+Conflicts:      libfprint-devel
 
 %description    devel
-The %{name}-devel package contains libraries and header files for
-developing applications that use %{name}.
+The %{name}-devel package contains libraries and header files
+for developing applications that use %{name}.
 
 %prep
 %autosetup -S git -n libfprint-v%{version}+tod1
@@ -49,7 +54,10 @@ developing applications that use %{name}.
 %build
 %meson \
   -Dgtk-examples=false \
+  -Ddoc=false \
+  -Dtod=true \
   -Dinstalled-tests=false \
+  -Ddrivers=all \
   --buildtype release
 %meson_build
 
@@ -76,7 +84,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libfprint-2.pc
 %{_libdir}/pkgconfig/libfprint-2-tod-1.pc
 %{_datadir}/gir-1.0/*.gir
-%{_datadir}/gtk-doc/html/libfprint-2/
+# %%{_datadir}/gtk-doc/html/libfprint-2/
 
 %changelog
+* Wed Sep 18 2024 Quan Trinh <qt.quantrinh@zohomail.com> 1.94.8-1
+- Updated to 1.94.8
 %autochangelog
