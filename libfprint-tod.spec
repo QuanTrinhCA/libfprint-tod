@@ -32,6 +32,8 @@ BuildRequires:  gobject-introspection-devel
 # For internal CI tests; umockdev 0.13.2 has an important locking fix
 BuildRequires:  python3-cairo python3-gobject cairo-devel
 BuildRequires:  umockdev >= 0.13.2
+# For driver uru4000
+BuildRequires:  openssl-devel
 
 %description
 %{name} offers support for consumer fingerprint reader
@@ -76,6 +78,7 @@ for developing applications that use %{name}.
 %{_libdir}/girepository-1.0/*.typelib
 %{_udevhwdbdir}/60-autosuspend-libfprint-2.hwdb
 %{_udevrulesdir}/70-libfprint-2.rules
+%{_datadir}/metainfo/org.freedesktop.libfprint.metainfo.xml
 
 %files devel
 %doc HACKING.md
@@ -87,8 +90,8 @@ for developing applications that use %{name}.
 # %%{_datadir}/gtk-doc/html/libfprint-2/
 
 %changelog
-* Wed Apr 12 2025 Quan Trinh <qt.quantrinh@zohomail.com> 1.94.8-1
-- Updated to 1.94.9
 * Wed Sep 18 2024 Quan Trinh <qt.quantrinh@zohomail.com> 1.94.8-1
 - Updated to 1.94.8
+* Sat Apr 12 2025 Quan Trinh <qt.quantrinh@zohomail.com> 1.94.9-1
+- Updated to 1.94.9
 %autochangelog
